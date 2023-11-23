@@ -2,6 +2,7 @@
 Autor   : Mr Leopard
 License : MIT
 """
+import os
 import time
 import copy
 from tkinter import Tk, Text, END, Scrollbar
@@ -18,6 +19,10 @@ class NewUi(Tk):
         self.bind("<Key>", self.on_key_event)
         self.full_screen = False
         self.attributes('-fullscreen', self.full_screen)
+
+        ico = os.path.join(os.path.dirname(__file__), "icon.ico")
+        if os.path.exists(ico):
+            self.iconbitmap(os.path.join(os.path.dirname(__file__), "icon.ico"))
 
         scrollbar = Scrollbar(self, orient="vertical")
         scrollbar.pack(side="right", fill="y")
@@ -114,12 +119,16 @@ class NewUi(Tk):
         elif event.keysym == "slash":
             self.switch_color()
         elif event.keysym == "Right" and type(self.window_content) == list:
+            self.title(self.title() + "  loading...")
             self.insert(self.provider.get_dozen("next"))
+            self.title(self.title().replace("  loading...", ""))
         elif event.keysym == "Left" and type(self.window_content) == list:
             self.insert(self.provider.get_dozen("previous"))
         elif type(self.window_content) == list and \
                 event.keycode in range(65, len(self.window_content) + 65):
+            self.title(self.title() + "  loading...")
             self.insert_content(event.keycode)
+            self.title(self.title().replace("  loading...", ""))
         elif event.keysym == "BackSpace":
             self.insert(self.provider.get_dozen("current"))
         elif type(self.window_content) == dict and event.keysym in ["b", "B"]:
@@ -131,10 +140,14 @@ class NewUi(Tk):
             self.text_area.yview_scroll(-1, "unit")
 
         elif type(self.window_content) == dict and event.keysym == "Next":
+            self.title(self.title() + "  loading...")
             self.change_news("Next")
+            self.title(self.title().replace("  loading...", ""))
 
         elif type(self.window_content) == dict and event.keysym == "Prior":
+            self.title(self.title() + "  loading...")
             self.change_news("Prior")
+            self.title(self.title().replace("  loading...", ""))
 
         elif event.keysym == "0":
             self.full_screen = not self.full_screen
