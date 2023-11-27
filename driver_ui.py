@@ -7,7 +7,7 @@ import time
 import copy
 from tkinter import Tk, Text, END, Scrollbar
 import webbrowser
-from intent_provider import Provider
+from content_provider import Provider
 
 
 class NewUi(Tk):
