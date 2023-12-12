@@ -3,14 +3,19 @@
 ## windows  
 
 ```
-python3 -m pip install requests bs4
+python3 -m pip install requests bs4 lxml
 ```
 
 
 ## linux & mac  
 
+先安装个tkinter依赖,根据你的情况来。
 ```
-python3 -m pip install requests bs4  
+sudo apt install python3-tkinter
+sudo yum install python3-tkinter
+```
+```
+python3 -m pip install requests bs4 lxml
 ```
 
 *如linux无pip，需先安装pip*

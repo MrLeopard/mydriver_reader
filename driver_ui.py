@@ -3,6 +3,7 @@ Autor   : Mr Leopard
 License : MIT
 """
 import os
+import sys
 import time
 import copy
 from tkinter import Tk, Text, END, Scrollbar
@@ -20,17 +21,20 @@ class NewUi(Tk):
         self.full_screen = False
         self.attributes('-fullscreen', self.full_screen)
 
-        ico = os.path.join(os.path.dirname(__file__), "icon.ico")
+        ico = os.path.join(os.path.dirname(__file__), "myicon.ico")
         if os.path.exists(ico):
-            self.iconbitmap(os.path.join(os.path.dirname(__file__), "icon.ico"))
+            if sys.platform == "win32":
+                self.iconbitmap(ico)
+            else:
+                self.iconbitmap()
 
         scrollbar = Scrollbar(self, orient="vertical")
         scrollbar.pack(side="right", fill="y")
 
         self.text_size = 12
         self.font = "msyh"
-        self.text_area = Text(self, background="#323232", font=(self.font, self.text_size)
-                              , yscrollcommand=scrollbar.set)
+        self.text_area = Text(self, background="#323232", font=(self.font, self.text_size),
+                              yscrollcommand=scrollbar.set, spacing1=5, spacing2=7, spacing3=7)
         self.text_area.pack(side="left", fill="both", expand=True)
         scrollbar.config(command=self.text_area.yview)
 
@@ -66,14 +70,14 @@ class NewUi(Tk):
             n = 65
             for i in content:
                 self.text_area.tag_configure(self.text_color, foreground=self.text_color)
-                self.text_area.insert(END, f"{chr(n)}、 {i['title']}---[{i['time']}]\n\n", self.text_color)
+                self.text_area.insert(END, f"{chr(n)}、 {i['title']}---[{i['time']}]\n", self.text_color)
                 self.text_area.see(END)
                 n += 1
 
         elif type(content) == dict:
             self.clear_text()
             self.text_area.insert(END, f'【{content["title"]}】\n', self.text_color)
-            self.text_area.insert(END, f'{content["time"]} {content["url"]}  \n\n', self.text_color)
+            self.text_area.insert(END, f'{content["time"]} {content["url"]} \n', self.text_color)
             for t in self.provider.get_new_content_text(content):
                 self.text_area.insert(END, f'{t}\n', self.text_color)
         # self.text_area.see(END)

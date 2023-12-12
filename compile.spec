@@ -7,7 +7,7 @@ a = Analysis(
     ['driver_ui.py'],
     pathex=[],
     binaries=[],
-    datas=[("icon.ico",".")],
+    datas=[("myicon.ico",".")],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -40,5 +40,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon='icon.ico'
+    icon='myicon.ico'
 )
